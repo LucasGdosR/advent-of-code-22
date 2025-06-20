@@ -4,7 +4,7 @@ For this year, my personal challenges are to solve it in Odin and create visuali
 For some days, I have an extra challenge of creating a visualization of a multi-threaded solution.
 
 - [x] 01: multi-threaded
-- [ ] 02
+- [x] 02: single-threaded
 - [ ] 03
 - [ ] 04
 - [ ] 05
