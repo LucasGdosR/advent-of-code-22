@@ -230,7 +230,7 @@ draw_frames_p1 :: proc(s: State, bound: int)
         }
         rl.DrawRectangleLinesEx(rect1, 2, rl.RED)
         rect2 : rl.Rectangle = {
-            x = f32(x + len(s.lines[i])/2 + int(s.h2[i]) * 20 - 2),
+            x = f32(x + (len(s.lines[i])/2 + int(s.h2[i])) * 20 - 2),
             y = f32(y - 2 + 100 * i),
             width = 24,
             height = 24,
