@@ -7,7 +7,7 @@ For some days, I have an extra challenge of creating a visualization of a multi-
 - [x] 02: single-threaded
 - [x] 03: single-threaded
 - [x] 04: single-threaded
-- [ ] 05
+- [x] 05: single-threaded
 - [ ] 06
 - [ ] 07
 - [ ] 08
