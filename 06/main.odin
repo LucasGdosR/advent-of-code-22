@@ -15,7 +15,7 @@ solve :: proc()
     window[input[0]] = 1
     insert_or_increment(&window, input[1])
     insert_or_increment(&window, input[2])
-    
+
     for i in 3..<len(input)
     {
         insert_or_increment(&window, input[i])
@@ -30,7 +30,7 @@ solve :: proc()
     m := make_map_cap(map[byte]u8, 14)
     defer delete(m)
     for i in 0..<13 do insert_or_increment(&m, input[i])
-    
+
     for i in 13..<len(input)
     {
         insert_or_increment(&m, input[i])
@@ -64,7 +64,7 @@ decrement_or_delete :: proc(m: ^map[byte]u8, k: byte)
  * In order to highlight characters, check if their value in the map > 1.
  */
 W :: 1900
-H :: 1000
+H :: 300
 State :: enum { SEEKING_BOTH, SEEKING_14, FOUND_BOTH }
 main :: proc()
 {
@@ -80,7 +80,7 @@ main :: proc()
 
     for i in 0..<3 do insert_or_increment(&map4, input[i])
     for i in 0..<13 do insert_or_increment(&map14, input[i])
-    
+
     rl.InitWindow(W, H, "AoC 22.06")
     defer rl.CloseWindow()
     rl.SetTargetFPS(60)
@@ -127,31 +127,47 @@ main :: proc()
             FONT_SIZE :: 20
             REC_PADDING :: 3
 
-            rl.DrawRectangleLines(X, Y - REC_PADDING, DX * 4, FONT_SIZE + 2*REC_PADDING, rl.BLUE)
-            rl.DrawRectangleLines(X, Y + DY - REC_PADDING, DX * 14, FONT_SIZE + 2*REC_PADDING, rl.BLUE)
+            // Draw the boxes where the current window is rendered
+            rl.DrawRectangleLines(X - REC_PADDING, Y - REC_PADDING, DX * 4 + REC_PADDING, FONT_SIZE + 2*REC_PADDING, rl.BLUE)
+            rl.DrawRectangleLines(X - REC_PADDING, Y + DY - REC_PADDING, DX * 14 + REC_PADDING, FONT_SIZE + 2*REC_PADDING, rl.BLUE)
 
-            animation_dx := DX * min(1, f32(frame_count) / 15)
-            for i in 0..<(W/DX + 2) // rl.DrawText em cada caracter visível
+            animation_dx := DX * max(0, (f32(frame_count) - 15) / 15)
+            animation_dx_p1, animation_dx_p2: f32
+            switch state {
+                case .SEEKING_BOTH:
+                    animation_dx_p1 = animation_dx
+                    animation_dx_p2 = animation_dx
+                case .SEEKING_14:
+                    animation_dx_p2 = animation_dx
+                case .FOUND_BOTH:
+            }
+
+            // Draw visible characters
+            for i in 0..<(W/DX + 2)
             {
                 f := f32(i)
-                rl.DrawTextCodepoint(rl.GetFontDefault(), rune(input[i4 + i - 3]), { X + f*DX - animation_dx, Y }, FONT_SIZE, rl.RAYWHITE)
-                rl.DrawTextCodepoint(rl.GetFontDefault(), rune(input[i14 + i - 13]), { X + f*DX - animation_dx, Y+DY }, FONT_SIZE, rl.RAYWHITE)
+                rl.DrawTextCodepoint(rl.GetFontDefault(), rune(input[i4 + i - 3]), { X + f*DX - animation_dx_p1, Y }, FONT_SIZE, rl.RAYWHITE)
+                rl.DrawTextCodepoint(rl.GetFontDefault(), rune(input[i14 + i - 13]), { X + f*DX - animation_dx_p2, Y+DY }, FONT_SIZE, rl.RAYWHITE)
             }
-            for i in i32(0)..<4 // rl.DrawRectangleLines() em duplicados usando i4
+
+            // Draw rec on repeated characters of part 1
+            for i in i32(0)..<4
             {
-                if map4[input[i32(i4) + i - 3]] > 1
+                // Workaround given the way state is mutated in main switch-statement
+                if map4[input[i32(i4) + i - 3]] > 1 || (map4[input[i32(i4) + i - 3]] == 1 && input[i32(i4)] == input[i32(i4) + i - 3])
                 {
-                    rl.DrawRectangleLines(X + i*DX - i32(animation_dx), Y, FONT_SIZE + 2*REC_PADDING, FONT_SIZE + 2*REC_PADDING, rl.RED)
+                    rl.DrawRectangleLines(X + i*DX - i32(animation_dx_p1), Y, FONT_SIZE + 2*REC_PADDING, FONT_SIZE, rl.RED)
                 }
             }
-            for i in i32(0)..<14 // rl.DrawRectangleLines() em duplicados usando i14
+            // Draw rec on repeated characters of part 2
+            for i in i32(0)..<14
             {
-                if map14[input[i32(i14) + i - 13]] > 1
+                if map14[input[i32(i14) + i - 13]] > 1 || (map14[input[i32(i14) + i - 13]] == 1 && input[i32(i14)] == input[i32(i14) + i - 13])
                 {
-                    rl.DrawRectangleLines(X + i*DX - i32(animation_dx), Y+DY, FONT_SIZE + 2*REC_PADDING, FONT_SIZE + 2*REC_PADDING, rl.RED)
+                    rl.DrawRectangleLines(X + i*DX - i32(animation_dx_p2), Y+DY, FONT_SIZE + 2*REC_PADDING, FONT_SIZE, rl.RED)
                 }
             }
-            if state != .SEEKING_BOTH do rl.DrawText(rl.TextFormat("%d", i4), 50, 50, 20, rl.GOLD)
-            if state == .FOUND_BOTH do rl.DrawText(rl.TextFormat("%d", i14), 50, 250, 20, rl.GOLD)
+            rl.DrawText(rl.TextFormat("%d", i4), 50, 50, 20, rl.GOLD)
+            rl.DrawText(rl.TextFormat("%d", i14), 50, 250, 20, rl.GOLD)
     }
 }
