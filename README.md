@@ -1,4 +1,5 @@
 # Advent of Code of 2022
+
 For this year, my personal challenges are to solve it in Odin and create visualizations.
 
 I have an extra challenge of thinking of how to solve the problem with a multi-threaded solution. In general, I only propose how it could be multi-threaded, but there may be some multi-threaded solutions and visualizations.
@@ -12,7 +13,7 @@ I have an extra challenge of thinking of how to solve the problem with a multi-t
 - [x] 07: single-threaded; multi-threading: this problem deals with trees, which are just stacks over time. The first pass, which builds the tree, is therefore serial. With the tree built, the second pass using DFS can be made in parallel, with different threads recursively exploring different branches of the tree. It's trivial with a multi-threading runtime (such as OpenCilk), but tricky with a from scratch solution.
 - [x] 08: single-threaded; multi-threaded solution idea: the loops can be done in parallel as long as they don't try to write to the same index in the grid. This is trivial for part 2, which is read-only.
 - [x] 09: single-threaded; multi-threading: this problem is serial. It cannot use multi-threading at all, I think.
-- [ ] 10
+- [x] 10: single-threaded; multi-threading: this problem is about mutating state serially. It cannot use multi-threading at all.
 - [ ] 11
 - [ ] 12
 - [ ] 13
