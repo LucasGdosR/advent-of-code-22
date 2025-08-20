@@ -10,8 +10,8 @@ I have an extra challenge of thinking of how to solve the problem with a multi-t
 - [x] 05: single-threaded; multi-threading: this problem is serial, as it deals with stacks. It cannot be solved with multi-threading, except that part 1 and part 2 can be solved in parallel (so 2 threads max).
 - [x] 06: single-threaded; multi-threaded solution idea: chunk the input and make chunks overlap so every substring is examinated by one thread. Get the solution index from the thread with the chunk with lowest starting index.
 - [x] 07: single-threaded; multi-threading: this problem deals with trees, which are just stacks over time. The first pass, which builds the tree, is therefore serial. With the tree built, the second pass using DFS can be made in parallel, with different threads recursively exploring different branches of the tree. It's trivial with a multi-threading runtime (such as OpenCilk), but tricky with a from scratch solution.
-- [x] 08: single_threaded; multi-threadded solution idea: the loops can be done in parallel as long as they don't try to write to the same index in the grid. This is trivial for part 2, which is read-only.
-- [ ] 09
+- [x] 08: single-threaded; multi-threaded solution idea: the loops can be done in parallel as long as they don't try to write to the same index in the grid. This is trivial for part 2, which is read-only.
+- [x] 09: single-threaded; multi-threading: this problem is serial. It cannot use multi-threading at all, I think.
 - [ ] 10
 - [ ] 11
 - [ ] 12
