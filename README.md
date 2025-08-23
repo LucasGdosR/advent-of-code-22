@@ -2,7 +2,7 @@
 
 For this year, my personal challenges are to solve it in Odin and create visualizations.
 
-I have an extra challenge of thinking of how to solve the problem with a multi-threaded solution. In general, I only propose how it could be multi-threaded, but there may be some multi-threaded solutions and visualizations.
+I have an extra challenge of thinking of how to solve the problem with a multi-threaded solution. In general, I only propose how it could be multi-threaded, but there may be some multi-threaded solutions and visualizations. In hindsight, this particular Advent of Code edition does not seem to favor multithreading, as many problems have a sequential nature. I had many more opportunities to multithread in the 2023 edition.
 
 - [x] 01: multi-threaded
 - [x] 02: single-threaded; multi-threaded solution idea: parallelize the `for-loop`, each thread accumulates to local variables, and sum accumulated solutions.
@@ -14,7 +14,7 @@ I have an extra challenge of thinking of how to solve the problem with a multi-t
 - [x] 08: single-threaded; multi-threaded solution idea: the loops can be done in parallel as long as they don't try to write to the same index in the grid. This is trivial for part 2, which is read-only.
 - [x] 09: single-threaded; multi-threading: this problem is serial. It cannot use multi-threading at all, I think.
 - [x] 10: single-threaded; multi-threading: this problem is about mutating state serially. It cannot use multi-threading at all.
-- [ ] 11
+- [x] 11: single-threaded; multi-threading: all monkeys must be processed sequentially, but each element in each monkey can be processed in parallel. However, the processing step is short, and it must then mutate a shared data structure. Locking and unlocking would completely kill performance. I can't think of a good way to multithread this.
 - [ ] 12
 - [ ] 13
 - [ ] 14
