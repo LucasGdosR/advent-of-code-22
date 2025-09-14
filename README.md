@@ -15,7 +15,7 @@ I have an extra challenge of thinking of how to solve the problem with a multi-t
 - [x] 09: single-threaded; multi-threading: this problem is serial. It cannot use multi-threading at all, I think.
 - [x] 10: single-threaded; multi-threading: this problem is about mutating state serially. It cannot use multi-threading at all.
 - [x] 11: single-threaded; multi-threading: all monkeys must be processed sequentially, but each element in each monkey can be processed in parallel. However, the processing step is short, and it must then mutate a shared data structure. Locking and unlocking would completely kill performance. I can't think of a good way to multithread this.
-- [ ] 12
+- [X] 12: single-threaded; multi-threading: one could run a BFS from every starting point at once, but it's much more elegant to run just a single BFS with all starting nodes in the starting queue.
 - [ ] 13
 - [ ] 14
 - [ ] 15
